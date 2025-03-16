@@ -8,10 +8,9 @@ class OpinionSimulation : public Simulation
 public:
 	using Simulation::Simulation;
 
-	void start() override;
+	void onStart() override;
 	//void step() override;
 	//void handleInputs() override;
-	//void setInfoText() override;
 private:
 	void injectInfoTextInitialization(std::stringstream& ss) override;
 	//void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss) override;

@@ -4,6 +4,7 @@
 
 void OpinionSimulation::start()
 {
+	using Simulation::start;
 	// Optionally, create a random device to seed the RNG.
 	// For now, I use fixed seeding for reproducibility.
 
