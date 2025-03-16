@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-void OpinionSimulation::start()
+void OpinionSimulation::onStart()
 {
-	using Simulation::start;
+	flashingEdges.reserve(100);
+
 	// Optionally, create a random device to seed the RNG.
 	// For now, I use fixed seeding for reproducibility.
 
@@ -37,6 +38,91 @@ void OpinionSimulation::start()
 	}
 }
 
+void OpinionSimulation::step()
+{
+	unflashEdges();
+	for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
+	{
+		Node& node = m_graph->getNode(i);
+
+		if (m_currentTimeStep % node.broadcastFrequency == 0)
+		{
+			for (int j = 0; j < node.outEdges.size(); ++j)
+			{
+				Edge* connection = node.outEdges[j];
+				Node* endNode = connection->end;
+
+				int successDeterminer = interactionDistribution(rngEngine);
+				int interactionStrength = node.persuation * endNode->gullability * connection->weight;
+
+				// Successful persuasion
+				if (successDeterminer < interactionStrength)
+				{
+					// Flash the connection.
+					flashingEdges.push_back(connection);
+					if (endNode->opinion == node.opinion)
+					{
+						//endNode->opinionStrength += node.persuation;
+					}
+					else
+					{
+						if (endNode->opinionStrength > node.persuation)
+						{
+							endNode->opinionStrength -= node.persuation;
+						}
+						else
+						{
+							endNode->opinion = !endNode->opinion;
+							int excessOpinion = node.persuation - endNode->opinionStrength;
+							endNode->opinionStrength = excessOpinion;
+
+							if (endNode->opinion)
+							{
+								m_graph->setNodeColor(i, sf::Color::Red);
+							}
+							else
+							{
+								m_graph->setNodeColor(i, sf::Color::Blue);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	flashEdges();
+}
+
+void OpinionSimulation::flashEdges()
+{
+	for (int i = 0; i < flashingEdges.size(); ++i)
+	{
+		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::Green);
+	}
+}
+
+void OpinionSimulation::unflashEdges()
+{
+	for (int i = 0; i < flashingEdges.size(); ++i)
+	{
+		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::White);
+	}
+	flashingEdges.clear();
+}
+
+//void OpinionSimulation::handleInputs()
+//{
+//	if (m_inputState.keyPressed_P)
+//	{
+//		m_isPaused = true;
+//	}
+//	else
+//	{
+//		m_isPaused = false;
+//	}
+//}
+
 void OpinionSimulation::injectInfoTextInitialization(std::stringstream& ss)
 {
 	std::cout << "Hello" << std::endl;
@@ -46,4 +132,16 @@ void OpinionSimulation::injectInfoTextInitialization(std::stringstream& ss)
 		<< "Persuasion: " << "????????????????????????" << "\n"
 		<< "Gullability: " << "????????????????????????" << "\n"
 		<< "Broadcast Frequency: " << "????????????????????????" << "\n";
+}
+
+void OpinionSimulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
+{
+	Node& node = m_graph->getNode(nodeIndex);
+
+	ss << "Selected Node: " << nodeIndex << "\n"
+		<< "Opinion: " << node.opinion << "\n"
+		<< "Opinion Strength: " << node.opinionStrength << "\n"
+		<< "Persuasion: " << node.persuation << "\n"
+		<< "Gullability: " << node.gullability << "\n"
+		<< "Broadcast Frequency: " << node.broadcastFrequency << "\n";
 }
