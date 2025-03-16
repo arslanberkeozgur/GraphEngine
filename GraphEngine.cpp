@@ -4,7 +4,7 @@
 
 int main()
 {
-    Graph graph{ "../../../testMatrix.txt" };
+    Graph graph{ "../../../testMatrix3.txt" };
     OpinionSimulation simulation{ &graph };
 
     simulation.run();

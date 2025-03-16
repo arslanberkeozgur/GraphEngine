@@ -8,8 +8,8 @@ void OpinionSimulation::onStart()
 
 	// Optionally, create a random device to seed the RNG.
 	// For now, I use fixed seeding for reproducibility.
-
-	rngEngine.seed(0);
+	std::random_device rd;
+	rngEngine.seed(rd());
 
 	std::uniform_int_distribution<> intDist(1, 10);
 	std::uniform_int_distribution<> broadcastFreqDist(20, 100);
@@ -40,7 +40,10 @@ void OpinionSimulation::onStart()
 
 void OpinionSimulation::onStep()
 {
-	unflashEdges();
+	if (m_currentTimeStep % 20 == 0)
+	{
+		unflashEdges();
+	}
 	for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
 	{
 		Node& node = m_graph->getNode(i);
