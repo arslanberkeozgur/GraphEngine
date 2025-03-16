@@ -16,6 +16,8 @@ private:
 	void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss) override;
 
 private:
+	bool pKeyHeld = false;
+
 	std::mt19937 rngEngine;
 	std::uniform_int_distribution<> interactionDistribution{ 0,100 };
 

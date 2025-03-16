@@ -60,6 +60,7 @@ void Graph::adjacencyMatrixToGeometry()
 			}
 		}
 	}
+
 	m_edges.resize(numOfEdges);
 	m_edgeVertices = sf::VertexArray(sf::PrimitiveType::Triangles, numOfEdges * 9);
 
@@ -97,7 +98,6 @@ void Graph::adjacencyMatrixToGeometry()
 
 				currentEdge++;
 			}
-
 			if (currentEdge == numOfEdges)
 			{
 				std::cout << "All edges processed." << std::endl;

@@ -117,14 +117,11 @@ void OpinionSimulation::unflashEdges()
 
 void OpinionSimulation::injectInputHandling()
 {
-	if (m_inputState.keyPressed_P)
+	if (m_inputState.keyPressed_P && !pKeyHeld)
 	{
-		m_isPaused = true;
+		m_isPaused = !m_isPaused;
 	}
-	else
-	{
-		m_isPaused = false;
-	}
+	pKeyHeld = m_inputState.keyPressed_P;
 }
 
 void OpinionSimulation::injectInfoTextInitialization(std::stringstream& ss)
