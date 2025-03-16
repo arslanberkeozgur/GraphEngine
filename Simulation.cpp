@@ -165,9 +165,13 @@ void Simulation::initializeInfoText()
 	m_infoText->setFillColor(Settings::FONT_COLOR);
 	sf::Vector2u windowSize = m_window.getSize();
 	std::stringstream ss;
-	ss << "Selected Node: " << "????????????????????????" << "\n"
-		<< "Persuasion: " << "????????????????????????" << "\n"
-		<< "Gullability: " << "????????????????????????" << "\n";
+
+	// -----BELOW IS WHERE YOU INJECT YOUR TEXT-----
+
+	injectInfoTextInitialization(ss);
+
+	// -----ABOVE IS WHERE YOU INJECT YOUR TEXT-----
+
 	m_infoText->setString(ss.str());
 	sf::FloatRect textBounds = m_infoText->getLocalBounds();
 	m_infoText->setOrigin({ textBounds.size.x, 0.f });
@@ -181,12 +185,28 @@ void Simulation::setInfoText()
 		int i = m_inputState.selectedNodeIndexForInfo;
 		std::stringstream ss;
 
-		// -----YOU CAN WRITE YOUR OWN WAY OF SETTING INFO TEXT BELOW-----
-		ss << "Selected Node: " << i << "\n"
-			<< "Persuasion: " << m_graph->getNode(i).persuation << "\n"
-			<< "Gullability: " << m_graph->getNode(i).gullability << "\n";
-		// -----YOU CAN WRITE YOUR OWN WAY OF SETTING INFO TEXT ABOVE-----
+		// -----BELOW IS WHERE YOU INJECT YOUR TEXT-----
+
+		injectInfoTextUpdate(i, ss);
+
+		// -----ABOVE IS WHERE YOU INJECT YOUR TEXT-----
 
 		m_infoText->setString(ss.str());
 	}
+}
+
+void Simulation::injectInfoTextInitialization(std::stringstream& ss)
+{
+	ss << "Selected Node: " << "????????????????????????" << "\n"
+		<< "Persuasion: " << "????????????????????????" << "\n"
+		<< "Gullability: " << "????????????????????????" << "\n";
+}
+
+void Simulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
+{
+	Node& node = m_graph->getNode(nodeIndex);
+
+	ss << "Selected Node: " << nodeIndex << "\n"
+		<< "Persuasion: " << node.persuation << "\n"
+		<< "Gullability: " << node.gullability << "\n";
 }

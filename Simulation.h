@@ -17,8 +17,6 @@ public:
 	virtual void step();
 
 	virtual void handleInputs();
-	virtual void initializeInfoText();
-	virtual void setInfoText();
 
 	void stop()
 	{
@@ -51,4 +49,11 @@ protected:
 	bool m_isRunning = true;
 	bool m_isPaused = false;
 	uint64_t m_currentTimeStep = 0;
+
+	virtual void injectInfoTextInitialization(std::stringstream& ss);
+	virtual void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss);
+
+private:
+	void initializeInfoText();
+	void setInfoText();
 };
