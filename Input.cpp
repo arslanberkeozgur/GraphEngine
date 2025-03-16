@@ -1,5 +1,7 @@
 #include "Input.h"
 
+#include <iostream>
+
 namespace Input
 {
     void HandleInputs(sf::RenderWindow& window, InputState& inputState, sf::View& view, Graph& graph)
@@ -17,10 +19,7 @@ namespace Input
                 {
                     window.close();
                 }
-            }
 
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-            {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::P)
                 {
                     inputState.keyPressed_P = true;
