@@ -32,8 +32,8 @@ public:
 	void updateGeometry(int nodeHeld = -1, sf::Vector2f inject = { 0, 0 });
 	int findClosestNode(sf::Vector2f position, float tolerance = 10.0f) const;
 
-	void setNodeColor(size_t index, sf::Color color);
-	void setEdgeColor(size_t index, sf::Color color);
+	void setNodeColor(size_t index, sf::Color color, float alpha = 1.0f);
+	void setEdgeColor(size_t index, sf::Color color, float alpha = 1.0f);
 	int getNumOfEdges() const
 	{
 		return m_edges.size();

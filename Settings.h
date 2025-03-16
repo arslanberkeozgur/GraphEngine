@@ -20,6 +20,8 @@ namespace Settings
 	constexpr int ANTIALIASING = 4;	// Better looks, but performance heavy.
 	constexpr sf::Color BACKGROUND_COLOR = sf::Color::Black;
 	constexpr sf::Color NODE_COLOR = sf::Color::White;
+	constexpr sf::Color EDGE_COLOR = sf::Color::White;
+	constexpr float EDGE_ALPHA = 1.0f;
 	constexpr float NODE_SIZE = 1.0f;
 	constexpr float EDGE_THICKNESS = 0.1f;
 	constexpr float ATTRACTION_FORCE = 0.01f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.

@@ -81,6 +81,8 @@ void Graph::adjacencyMatrixToGeometry()
 				m_nodes[i].outEdges.push_back(&edge);
 				m_nodes[j].inEdges.push_back(&edge);
 
+				setEdgeColor(currentEdge, Settings::EDGE_COLOR, Settings::EDGE_ALPHA);
+
 				currentEdge++;
 			}
 			if (m_adjacencyMatrix[j][i] != 0)
@@ -94,6 +96,8 @@ void Graph::adjacencyMatrixToGeometry()
 
 				m_nodes[i].inEdges.push_back(&edge);
 				m_nodes[j].outEdges.push_back(&edge);
+
+				setEdgeColor(currentEdge, Settings::EDGE_COLOR, Settings::EDGE_ALPHA);
 
 				currentEdge++;
 			}
@@ -382,7 +386,7 @@ int Graph::findClosestNode(sf::Vector2f position, float tolerance) const
 	return closestIndex;
 }
 
-void Graph::setNodeColor(size_t index, sf::Color color)
+void Graph::setNodeColor(size_t index, sf::Color color, float alpha)
 {
 	m_nodeVertices[6 * index].color = color;
 	m_nodeVertices[6 * index + 1].color = color;
@@ -390,9 +394,17 @@ void Graph::setNodeColor(size_t index, sf::Color color)
 	m_nodeVertices[6 * index + 3].color = color;
 	m_nodeVertices[6 * index + 4].color = color;
 	m_nodeVertices[6 * index + 5].color = color;
+
+	m_nodeVertices[6 * index].color.a = alpha;
+	m_nodeVertices[6 * index + 1].color.a = alpha;
+	m_nodeVertices[6 * index + 2].color.a = alpha;
+	m_nodeVertices[6 * index + 3].color.a = alpha;
+	m_nodeVertices[6 * index + 4].color.a = alpha;
+	m_nodeVertices[6 * index + 5].color.a = alpha;
+
 }
 
-void Graph::setEdgeColor(size_t index, sf::Color color)
+void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 {
 	m_edgeVertices[9 * index].color = color;
 	m_edgeVertices[9 * index + 1].color = color;
@@ -400,4 +412,11 @@ void Graph::setEdgeColor(size_t index, sf::Color color)
 	m_edgeVertices[9 * index + 3].color = color;
 	m_edgeVertices[9 * index + 4].color = color;
 	m_edgeVertices[9 * index + 5].color = color;
+
+	m_edgeVertices[9 * index].color.a = alpha;
+	m_edgeVertices[9 * index + 1].color.a = alpha;
+	m_edgeVertices[9 * index + 2].color.a = alpha;
+	m_edgeVertices[9 * index + 3].color.a = alpha;
+	m_edgeVertices[9 * index + 4].color.a = alpha;
+	m_edgeVertices[9 * index + 5].color.a = alpha;
 }
