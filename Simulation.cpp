@@ -173,7 +173,6 @@ void Simulation::onStep()
 
 void Simulation::initializeInfoText()
 {
-	std::cout << m_font.getInfo().family << std::endl;
 	m_infoText.emplace(m_font);
 	m_infoText->setCharacterSize(Settings::FONT_SIZE);
 	m_infoText->setFillColor(Settings::FONT_COLOR);
