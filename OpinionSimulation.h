@@ -10,7 +10,7 @@ public:
 
 	void onStart() override;
 	void step() override;
-	//void handleInputs() override;
+	void injectInputHandling() override;
 private:
 	void injectInfoTextInitialization(std::stringstream& ss) override;
 	void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss) override;

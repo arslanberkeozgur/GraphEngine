@@ -12,7 +12,7 @@ void OpinionSimulation::onStart()
 	rngEngine.seed(0);
 
 	std::uniform_int_distribution<> intDist(1, 10);
-	std::uniform_int_distribution<> broadcastFreqDist(0, 1000);
+	std::uniform_int_distribution<> broadcastFreqDist(10000, 20000);
 
 	// Initialize the node variations.
 	// Maybe you can manually insert personalities later, for now it is random.
@@ -20,7 +20,7 @@ void OpinionSimulation::onStart()
 	{
 		Node& node = m_graph->getNode(i);
 		node.gullability = intDist(rngEngine);
-		node.persuation = intDist(rngEngine);
+		node.persuasion = intDist(rngEngine);
 		node.opinionStrength = intDist(rngEngine);
 		node.broadcastFrequency = broadcastFreqDist(rngEngine);
 
@@ -47,13 +47,14 @@ void OpinionSimulation::step()
 
 		if (m_currentTimeStep % node.broadcastFrequency == 0)
 		{
+			std::cout << m_currentTimeStep << " " << node.broadcastFrequency << std::endl;
 			for (int j = 0; j < node.outEdges.size(); ++j)
 			{
 				Edge* connection = node.outEdges[j];
 				Node* endNode = connection->end;
 
 				int successDeterminer = interactionDistribution(rngEngine);
-				int interactionStrength = node.persuation * endNode->gullability * connection->weight;
+				int interactionStrength = node.persuasion * endNode->gullability * connection->weight;
 
 				// Successful persuasion
 				if (successDeterminer < interactionStrength)
@@ -62,27 +63,27 @@ void OpinionSimulation::step()
 					flashingEdges.push_back(connection);
 					if (endNode->opinion == node.opinion)
 					{
-						//endNode->opinionStrength += node.persuation;
+						endNode->opinionStrength += node.persuasion;
 					}
 					else
 					{
-						if (endNode->opinionStrength > node.persuation)
+						if (endNode->opinionStrength > node.persuasion)
 						{
-							endNode->opinionStrength -= node.persuation;
+							endNode->opinionStrength -= node.persuasion;
 						}
 						else
 						{
 							endNode->opinion = !endNode->opinion;
-							int excessOpinion = node.persuation - endNode->opinionStrength;
+							int excessOpinion = node.persuasion - endNode->opinionStrength;
 							endNode->opinionStrength = excessOpinion;
 
 							if (endNode->opinion)
 							{
-								m_graph->setNodeColor(i, sf::Color::Red);
+								m_graph->setNodeColor(endNode->index, sf::Color::Red);
 							}
 							else
 							{
-								m_graph->setNodeColor(i, sf::Color::Blue);
+								m_graph->setNodeColor(endNode->index, sf::Color::Blue);
 							}
 						}
 					}
@@ -111,17 +112,17 @@ void OpinionSimulation::unflashEdges()
 	flashingEdges.clear();
 }
 
-//void OpinionSimulation::handleInputs()
-//{
-//	if (m_inputState.keyPressed_P)
-//	{
-//		m_isPaused = true;
-//	}
-//	else
-//	{
-//		m_isPaused = false;
-//	}
-//}
+void OpinionSimulation::injectInputHandling()
+{
+	if (m_inputState.keyPressed_P)
+	{
+		m_isPaused = true;
+	}
+	else
+	{
+		m_isPaused = false;
+	}
+}
 
 void OpinionSimulation::injectInfoTextInitialization(std::stringstream& ss)
 {
@@ -141,7 +142,7 @@ void OpinionSimulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& s
 	ss << "Selected Node: " << nodeIndex << "\n"
 		<< "Opinion: " << node.opinion << "\n"
 		<< "Opinion Strength: " << node.opinionStrength << "\n"
-		<< "Persuasion: " << node.persuation << "\n"
+		<< "Persuasion: " << node.persuasion << "\n"
 		<< "Gullability: " << node.gullability << "\n"
 		<< "Broadcast Frequency: " << node.broadcastFrequency << "\n";
 }
