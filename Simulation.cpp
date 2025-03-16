@@ -195,7 +195,6 @@ void Simulation::setInfoText()
 {
 	if (m_inputState.selectedNodeIndexForInfo >= 0)
 	{
-		std::cout << "HEYY" << std::endl;
 		int i = m_inputState.selectedNodeIndexForInfo;
 		std::stringstream ss;
 
