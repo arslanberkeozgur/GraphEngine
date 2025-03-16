@@ -12,12 +12,6 @@ public:
 	virtual ~Simulation() = default;
 
 	void run();
-
-	virtual void start();
-	virtual void step();
-
-	virtual void handleInputs();
-
 	void stop()
 	{
 		m_isRunning = false;
@@ -30,6 +24,12 @@ public:
 	{
 		m_isPaused = false;
 	}
+protected:
+	virtual void onStart();
+	virtual void step();
+	virtual void handleInputs();
+	virtual void injectInfoTextInitialization(std::stringstream& ss);
+	virtual void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss);
 
 protected:
 	sf::RenderWindow m_window;
@@ -50,10 +50,8 @@ protected:
 	bool m_isPaused = false;
 	uint64_t m_currentTimeStep = 0;
 
-	virtual void injectInfoTextInitialization(std::stringstream& ss);
-	virtual void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss);
-
 private:
+	void start();
 	void initializeInfoText();
 	void setInfoText();
 };
