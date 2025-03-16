@@ -51,23 +51,13 @@ Simulation::Simulation(Graph* graph, const std::string& fontPath)
 	}
 	else
 	{
-		m_infoText.emplace(m_font);
-		m_infoText->setCharacterSize(Settings::FONT_SIZE);
-		m_infoText->setFillColor(Settings::FONT_COLOR);
-		sf::Vector2u windowSize = m_window.getSize();
-		std::stringstream ss;
-		ss << "Selected Node: " << "????????????????????????" << "\n"
-			<< "Persuasion: " << "????????????????????????" << "\n"
-			<< "Gullability: " << "????????????????????????" << "\n";
-		m_infoText->setString(ss.str());
-		sf::FloatRect textBounds = m_infoText->getLocalBounds();
-		m_infoText->setOrigin({ textBounds.size.x, 0.f });
-		m_infoText->setPosition({ static_cast<float>(windowSize.x) - 10.f, 10.f });
+		initializeInfoText();
 	}
 }
 
 void Simulation::handleInputs()
 {
+	// This should exist in all overrides.
 	Input::HandleInputs(m_window, m_inputState, m_view, *m_graph);
 
 	// Scrolling
@@ -105,7 +95,7 @@ void Simulation::run()
 	while (m_window.isOpen())
 	{
 		handleInputs();
-		if (m_isRunning)
+		if (m_isRunning && !m_isPaused)
 		{
 			step();
 		}
@@ -165,6 +155,22 @@ void Simulation::step()
 	//---------------- INJECT ALGORITHMS ABOVE THIS LINE. ----------------
 
 	m_currentTimeStep += 1;
+}
+
+void Simulation::initializeInfoText()
+{
+	m_infoText.emplace(m_font);
+	m_infoText->setCharacterSize(Settings::FONT_SIZE);
+	m_infoText->setFillColor(Settings::FONT_COLOR);
+	sf::Vector2u windowSize = m_window.getSize();
+	std::stringstream ss;
+	ss << "Selected Node: " << "????????????????????????" << "\n"
+		<< "Persuasion: " << "????????????????????????" << "\n"
+		<< "Gullability: " << "????????????????????????" << "\n";
+	m_infoText->setString(ss.str());
+	sf::FloatRect textBounds = m_infoText->getLocalBounds();
+	m_infoText->setOrigin({ textBounds.size.x, 0.f });
+	m_infoText->setPosition({ static_cast<float>(windowSize.x) - 10.f, 10.f });
 }
 
 void Simulation::setInfoText()

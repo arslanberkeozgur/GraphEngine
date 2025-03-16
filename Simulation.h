@@ -9,16 +9,29 @@ class Simulation
 public:
 	Simulation(Graph* graph, const std::string& fontPath = "../../../nasa.ttf");
 
-	void start();
+	virtual ~Simulation() = default;
+
 	void run();
-	void step();
+
+	virtual void start();
+	virtual void step();
+
+	virtual void handleInputs();
+	virtual void initializeInfoText();
+	virtual void setInfoText();
+
 	void stop()
 	{
 		m_isRunning = false;
 	}
-
-	void handleInputs();
-	void setInfoText();
+	void pause()
+	{
+		m_isPaused = true;
+	}
+	void unpause()
+	{
+		m_isPaused = false;
+	}
 
 private:
 	sf::RenderWindow m_window;
@@ -36,5 +49,6 @@ private:
 	Graph* m_graph;
 
 	bool m_isRunning = true;
+	bool m_isPaused = false;
 	uint64_t m_currentTimeStep = 0;
 };
