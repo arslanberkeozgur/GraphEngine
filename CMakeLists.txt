@@ -12,7 +12,7 @@ endif()
 project ("GraphEngine")
 
 # Add source to this project's executable.
-add_executable (GraphEngine "GraphEngine.cpp"  "Input.h" "Graph.h" "Graph.cpp" "Settings.h"  "NodeAndEdge.h"   "Simulation.h" "Simulation.cpp" "Input.cpp")
+add_executable (GraphEngine "GraphEngine.cpp"  "Input.h" "Graph.h" "Graph.cpp" "Settings.h"  "NodeAndEdge.h"   "Simulation.h" "Simulation.cpp" "Input.cpp" "GraphGeneration.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET GraphEngine PROPERTY CXX_STANDARD 20)

@@ -1,10 +1,12 @@
 ﻿// GraphEngine.cpp : Defines the entry point for the application.
 
 #include "Simulation.h"
+#include "GraphGeneration.h"
 
 int main()
 {
-    Graph graph{ "../../../testMatrix.txt" };
+    std::vector<std::vector<int>> adjacencyMatrix = GraphGeneration::GenerateRandomGraph(10, 0.1, 4);
+    Graph graph{ adjacencyMatrix };
     Simulation simulation{ &graph };
 
     simulation.run();
