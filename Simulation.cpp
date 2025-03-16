@@ -140,7 +140,7 @@ void Simulation::run()
 				Edge& edge = m_graph->getEdge(i);
 				sf::Text text(m_font);
 				text.setString(std::to_string(edge.weight));
-				text.setCharacterSize(Settings::FONT_SIZE);
+				text.setCharacterSize(Settings::WEIGHT_FONT_SIZE);
 				text.setFillColor(Settings::FONT_COLOR);
 
 

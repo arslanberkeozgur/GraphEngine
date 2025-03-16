@@ -26,15 +26,15 @@ void OpinionSimulation::onStart()
 		node.broadcastFrequency = broadcastFreqDist(rngEngine);
 
 		int opinionDeterminer = intDist(rngEngine);
-		if (opinionDeterminer > 5)
+		if (opinionDeterminer <= 5)
+		{
+			node.opinion = true;
+			m_graph->setNodeColor(i, opinion1Color);
+		}
+		else
 		{
 			node.opinion = false;
-			m_graph->setNodeColor(i, sf::Color::Blue);
-		}
-
-		if (node.opinion)
-		{
-			m_graph->setNodeColor(i, sf::Color::Red);
+			m_graph->setNodeColor(i, opinion2Color);
 		}
 	}
 }
@@ -82,11 +82,11 @@ void OpinionSimulation::onStep()
 
 							if (endNode->opinion)
 							{
-								m_graph->setNodeColor(endNode->index, sf::Color::Red);
+								m_graph->setNodeColor(endNode->index, opinion1Color);
 							}
 							else
 							{
-								m_graph->setNodeColor(endNode->index, sf::Color::Blue);
+								m_graph->setNodeColor(endNode->index, opinion2Color);
 							}
 						}
 					}

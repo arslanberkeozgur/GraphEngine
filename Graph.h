@@ -54,7 +54,7 @@ private:
 	float m_areaSize;
 	float m_attraction = Settings::ATTRACTION_FORCE;
 	float m_repulsion = Settings::REPULSION_FORCE;
-	int m_iterations = 10;
+	int m_iterations = 100;
 
 	// Rendering
 	sf::VertexArray m_nodeVertices;

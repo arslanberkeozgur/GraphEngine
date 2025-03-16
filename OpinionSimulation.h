@@ -18,6 +18,9 @@ private:
 private:
 	bool pKeyHeld = false;
 
+	sf::Color opinion1Color = sf::Color::Cyan;
+	sf::Color opinion2Color = sf::Color::Red;
+
 	std::mt19937 rngEngine;
 	std::uniform_int_distribution<> interactionDistribution{ 0,100 };
 

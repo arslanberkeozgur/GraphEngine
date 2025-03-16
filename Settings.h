@@ -20,17 +20,18 @@ namespace Settings
 	constexpr int ANTIALIASING = 4;	// Better looks, but performance heavy.
 	constexpr sf::Color BACKGROUND_COLOR = sf::Color::Black;
 	constexpr sf::Color NODE_COLOR = sf::Color::White;
-	constexpr float NODE_SIZE = 1.0f;
+	constexpr float NODE_SIZE = 3.0f;
 	constexpr float EDGE_THICKNESS = 0.1f;
 	constexpr float ATTRACTION_FORCE = 0.01f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
-	constexpr float REPULSION_FORCE = 0.04f;      // Same recommendation as above. 
+	constexpr float REPULSION_FORCE = 0.4f;      // Same recommendation as above. 
 
 	// ---------- TEXT ----------
+	constexpr unsigned int WEIGHT_FONT_SIZE = 8;
 	constexpr unsigned int FONT_SIZE = 24;
 	constexpr sf::Color FONT_COLOR = sf::Color::White;
 
 	// ---------- SIMULATION ----------
-	constexpr bool SHOW_WEIGHTS = true;		// Performance intensive for large graphs.
+	constexpr bool SHOW_WEIGHTS = false;		// Performance intensive for large graphs.
 	constexpr float WEIGHT_TEXT_DISTANCE = 0.1f; // Positioning of weight indicators from edges.
 	constexpr bool DISPLAY_NODE_INFO = true;
 }
