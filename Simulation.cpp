@@ -82,8 +82,14 @@ void Simulation::handleInputs()
 void Simulation::start()
 {
 	initializeInfoText();
-	// THIS FUNCTION IS FOR INITIALIZING THE SIMULATION.
+	onStart();
+}
 
+void Simulation::onStart()
+{
+	// ----YOU WILL INJECT YOUR INITIALIZATION CODE BELOW----
+
+	// ----YOU WILL INJECT YOUR INITIALIZATION CODE ABOVE----
 }
 
 // Render/simulation loop.
