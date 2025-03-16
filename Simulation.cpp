@@ -92,6 +92,7 @@ void Simulation::start()
 // Render/simulation loop.
 void Simulation::run()
 {
+	start();
 	while (m_window.isOpen())
 	{
 		handleInputs();
