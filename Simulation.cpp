@@ -77,6 +77,8 @@ void Simulation::handleInputs()
 		m_nodeHeld = m_inputState.selectedNodeIndexForMoving;
 		m_injectMousePos = m_inputState.lastMouseWorldPos;
 	}
+
+	injectInputHandling();
 }
 
 void Simulation::start()
@@ -90,6 +92,13 @@ void Simulation::onStart()
 	// ----YOU WILL INJECT YOUR INITIALIZATION CODE BELOW----
 
 	// ----YOU WILL INJECT YOUR INITIALIZATION CODE ABOVE----
+}
+
+void Simulation::injectInputHandling()
+{
+	// ----YOU WILL INJECT YOUR INPUT HANDLING CODE BELOW----
+
+	// ----YOU WILL INJECT YOUR INPUT HANDLING CODE ABOVE----
 }
 
 // Render/simulation loop.
@@ -210,6 +219,6 @@ void Simulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
 	Node& node = m_graph->getNode(nodeIndex);
 
 	ss << "Selected Node: " << nodeIndex << "\n"
-		<< "Persuasion: " << node.persuation << "\n"
+		<< "Persuasion: " << node.persuasion << "\n"
 		<< "Gullability: " << node.gullability << "\n";
 }

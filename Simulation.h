@@ -27,7 +27,7 @@ public:
 protected:
 	virtual void onStart();
 	virtual void step();
-	virtual void handleInputs();
+	virtual void injectInputHandling();
 	virtual void injectInfoTextInitialization(std::stringstream& ss);
 	virtual void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss);
 
@@ -52,6 +52,7 @@ protected:
 
 private:
 	void start();
+	void handleInputs();
 	void initializeInfoText();
 	void setInfoText();
 };
