@@ -19,10 +19,12 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # Find SFML (Make sure SFML is installed correctly!)
+# !IMPORTANT: YOU NEED TO CHANGE THIS DIRECTORY
 set(SFML_DIR "C:/Users/user/SFML-3.0.0/lib/cmake/SFML") # Adjust the path if needed
 find_package(SFML 3.0 REQUIRED COMPONENTS Graphics Window System)
 
 # Include SFML headers
+# !IMPORTANT: YOU NEED TO CHANGE THIS DIRECTORY
 target_include_directories(GraphEngine PRIVATE "C:/Users/user/SFML-3.0.0/include")
 
 # Link SFML libraries

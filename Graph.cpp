@@ -98,10 +98,6 @@ void Graph::adjacencyMatrixToGeometry()
 
 				currentEdge++;
 			}
-			if (currentEdge == numOfEdges)
-			{
-				std::cout << "All edges processed." << std::endl;
-			}
 		}
 	}
 
