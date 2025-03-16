@@ -49,10 +49,6 @@ Simulation::Simulation(Graph* graph, const std::string& fontPath)
 	{
 		std::cerr << "WARNING::FONT NOT LOADED, EXPECT UNDEFINED BEHAVIOR" << std::endl;
 	}
-	else
-	{
-		initializeInfoText();
-	}
 }
 
 void Simulation::handleInputs()
@@ -85,6 +81,7 @@ void Simulation::handleInputs()
 
 void Simulation::start()
 {
+	initializeInfoText();
 	// THIS FUNCTION IS FOR INITIALIZING THE SIMULATION.
 
 }
