@@ -62,7 +62,6 @@ namespace Input
                 if (mouseButtonReleased->button == sf::Mouse::Button::Left)
                 {
                     inputState.mouseLeftPressed = false;
-                    inputState.selectedNodeIndexForInfo = -1;
                 }
                 if (mouseButtonReleased->button == sf::Mouse::Button::Right)
                 {
