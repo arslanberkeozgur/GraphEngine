@@ -19,6 +19,7 @@ void OpinionSimulation::onStart()
 	for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
 	{
 		Node& node = m_graph->getNode(i);
+
 		node.gullability = intDist(rngEngine);
 		node.persuasion = intDist(rngEngine);
 		node.opinionStrength = intDist(rngEngine);
