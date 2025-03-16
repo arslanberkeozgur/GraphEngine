@@ -17,6 +17,7 @@ namespace Input
         bool firstFrame = true;
         bool mouseLeftPressed = false;
         bool mouseRightPressed = false;
+        bool keyPressed_P = false;
         sf::Vector2i lastMousePos;
         sf::Vector2f lastMouseWorldPos;
         InputDeltas deltas;

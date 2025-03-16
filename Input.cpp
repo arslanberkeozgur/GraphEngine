@@ -19,8 +19,24 @@ namespace Input
                 }
             }
 
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::P)
+                {
+                    inputState.keyPressed_P = true;
+                }
+            }
+
+            if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>())
+            {
+                if (keyReleased->scancode == sf::Keyboard::Scancode::P)
+                {
+                    inputState.keyPressed_P = false;
+                }
+            }
+
             // Some bookkeeping for important input actions.
-            else if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
             {
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left)
                 {
@@ -41,7 +57,7 @@ namespace Input
                     inputState.mouseRightPressed = true;
                 }
             }
-            else if (const auto* mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>())
+            if (const auto* mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>())
             {
                 if (mouseButtonReleased->button == sf::Mouse::Button::Left)
                 {
@@ -55,7 +71,7 @@ namespace Input
                 }
             }
             // Update mouse movement.
-            else if (const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>())
+            if (const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>())
             {
                 if (inputState.firstFrame)
                 {
@@ -73,7 +89,7 @@ namespace Input
                 }
             }
             // Zooming
-            else if (const auto* mouseScroll = event->getIf<sf::Event::MouseWheelScrolled>())
+            if (const auto* mouseScroll = event->getIf<sf::Event::MouseWheelScrolled>())
             {
                 if (!inputState.firstFrame)
                 {
