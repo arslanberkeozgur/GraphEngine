@@ -15,7 +15,9 @@ struct Node
 	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
 	int persuation = 1;
 	int gullability = 1;
-
+	int opinionStrength = 0;
+	int broadcastFrequency = 100;
+	bool opinion = true;
 	// ---------- YOU CAN ADD PROPERTIES ABOVE THIS LINE ----------
 };
 
@@ -30,6 +32,5 @@ struct Edge
 
 	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
 	int weight;
-
 	// ---------- YOU CAN ADD PROPERTIES ABOVE THIS LINE ----------
 };
