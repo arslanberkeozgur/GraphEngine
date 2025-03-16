@@ -9,7 +9,7 @@ public:
 	using Simulation::Simulation;
 
 	void onStart() override;
-	void step() override;
+	void onStep() override;
 	void injectInputHandling() override;
 private:
 	void injectInfoTextInitialization(std::stringstream& ss) override;

@@ -12,7 +12,7 @@ void OpinionSimulation::onStart()
 	rngEngine.seed(0);
 
 	std::uniform_int_distribution<> intDist(1, 10);
-	std::uniform_int_distribution<> broadcastFreqDist(10000, 20000);
+	std::uniform_int_distribution<> broadcastFreqDist(20, 100);
 
 	// Initialize the node variations.
 	// Maybe you can manually insert personalities later, for now it is random.
@@ -38,7 +38,7 @@ void OpinionSimulation::onStart()
 	}
 }
 
-void OpinionSimulation::step()
+void OpinionSimulation::onStep()
 {
 	unflashEdges();
 	for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
@@ -47,7 +47,6 @@ void OpinionSimulation::step()
 
 		if (m_currentTimeStep % node.broadcastFrequency == 0)
 		{
-			std::cout << m_currentTimeStep << " " << node.broadcastFrequency << std::endl;
 			for (int j = 0; j < node.outEdges.size(); ++j)
 			{
 				Edge* connection = node.outEdges[j];
@@ -126,7 +125,6 @@ void OpinionSimulation::injectInputHandling()
 
 void OpinionSimulation::injectInfoTextInitialization(std::stringstream& ss)
 {
-	std::cout << "Hello" << std::endl;
 	ss << "Selected Node: " << "????????????????????????" << "\n"
 		<< "Opinion: " << "????????????????????????" << "\n"
 		<< "Opinion Strength: " << "????????????????????????" << "\n"
