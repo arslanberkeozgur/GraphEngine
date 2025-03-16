@@ -23,7 +23,7 @@ namespace Settings
 	constexpr float NODE_SIZE = 1.0f;
 	constexpr float EDGE_THICKNESS = 0.1f;
 	constexpr float ATTRACTION_FORCE = 0.01f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
-	constexpr float REPULSION_FORCE = 0.2f;      // Same recommendation as above. 
+	constexpr float REPULSION_FORCE = 0.04f;      // Same recommendation as above. 
 
 	// ---------- TEXT ----------
 	constexpr unsigned int FONT_SIZE = 24;
