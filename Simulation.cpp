@@ -162,12 +162,13 @@ void Simulation::run()
 
 void Simulation::step()
 {
-	//---------------- INJECT ALGORITHMS BELOW THIS LINE. ----------------
-
-
-	//---------------- INJECT ALGORITHMS ABOVE THIS LINE. ----------------
-
+	onStep();
 	m_currentTimeStep += 1;
+}
+
+void Simulation::onStep()
+{
+	// THIS IS WHERE YOU INJECT YOUR UPDATE CODE.
 }
 
 void Simulation::initializeInfoText()
