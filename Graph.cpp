@@ -387,7 +387,7 @@ int Graph::findClosestNode(sf::Vector2f position, float tolerance) const
 	return closestIndex;
 }
 
-void Graph::setNodeColor(size_t index, sf::Color color, float alpha)
+void Graph::setNodeColor(size_t index, sf::Color color, float alpha = 1.0f)
 {
 	m_nodeVertices[6 * index].color = color;
 	m_nodeVertices[6 * index + 1].color = color;
@@ -396,16 +396,16 @@ void Graph::setNodeColor(size_t index, sf::Color color, float alpha)
 	m_nodeVertices[6 * index + 4].color = color;
 	m_nodeVertices[6 * index + 5].color = color;
 
-	m_nodeVertices[6 * index].color.a = alpha;
-	m_nodeVertices[6 * index + 1].color.a = alpha;
-	m_nodeVertices[6 * index + 2].color.a = alpha;
-	m_nodeVertices[6 * index + 3].color.a = alpha;
-	m_nodeVertices[6 * index + 4].color.a = alpha;
-	m_nodeVertices[6 * index + 5].color.a = alpha;
+	m_nodeVertices[6 * index].color.a = int(alpha * 255.0f);
+	m_nodeVertices[6 * index + 1].color.a = int(alpha * 255.0f);
+	m_nodeVertices[6 * index + 2].color.a = int(alpha * 255.0f);
+	m_nodeVertices[6 * index + 3].color.a = int(alpha * 255.0f);
+	m_nodeVertices[6 * index + 4].color.a = int(alpha * 255.0f);
+	m_nodeVertices[6 * index + 5].color.a = int(alpha * 255.0f);
 
 }
 
-void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
+void Graph::setEdgeColor(size_t index, sf::Color color, float alpha = 1.0f)
 {
 	m_edgeVertices[9 * index].color = color;
 	m_edgeVertices[9 * index + 1].color = color;
@@ -414,10 +414,10 @@ void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 	m_edgeVertices[9 * index + 4].color = color;
 	m_edgeVertices[9 * index + 5].color = color;
 
-	m_edgeVertices[9 * index].color.a = alpha;
-	m_edgeVertices[9 * index + 1].color.a = alpha;
-	m_edgeVertices[9 * index + 2].color.a = alpha;
-	m_edgeVertices[9 * index + 3].color.a = alpha;
-	m_edgeVertices[9 * index + 4].color.a = alpha;
-	m_edgeVertices[9 * index + 5].color.a = alpha;
+	m_edgeVertices[9 * index].color.a = int(alpha * 255.0f);
+	m_edgeVertices[9 * index + 1].color.a = int(alpha * 255.0f);
+	m_edgeVertices[9 * index + 2].color.a = int(alpha * 255.0f);
+	m_edgeVertices[9 * index + 3].color.a = int(alpha * 255.0f);
+	m_edgeVertices[9 * index + 4].color.a = int(alpha * 255.0f);
+	m_edgeVertices[9 * index + 5].color.a = int(alpha * 255.0f);
 }
