@@ -8,12 +8,13 @@ struct Edge;
 struct Node
 {
 	sf::Vector2f position; // This is for rendering only. (position in world)
+	unsigned int index;
 
 	std::vector<Edge*> inEdges;
 	std::vector<Edge*> outEdges;
 
 	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
-	int persuation = 1;
+	int persuasion = 1;
 	int gullability = 1;
 	int opinionStrength = 0;
 	int broadcastFrequency = 100;

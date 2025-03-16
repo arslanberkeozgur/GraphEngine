@@ -47,6 +47,7 @@ void Graph::adjacencyMatrixToGeometry()
 	unsigned int numOfEdges = 0;
 	for (int i = 0; i < numOfNodes; ++i)
 	{
+		m_nodes[i].index = i;
 		for (int j = i + 1; j < numOfNodes; ++j)
 		{
 			if (m_adjacencyMatrix[i][j] != 0)
