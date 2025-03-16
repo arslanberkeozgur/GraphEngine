@@ -1,11 +1,11 @@
 ﻿// GraphEngine.cpp : Defines the entry point for the application.
 
-#include "Simulation.h"
+#include "OpinionSimulation.h"
 
 int main()
 {
-    Graph graph{ "../../../testMatrix2.txt" };
-    Simulation simulation{ &graph };
+    Graph graph{ "../../../testMatrix.txt" };
+    OpinionSimulation simulation{ &graph };
 
     simulation.run();
 }
