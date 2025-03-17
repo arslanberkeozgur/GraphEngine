@@ -403,6 +403,6 @@ void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 
 	for (size_t i = 0; i < 6; ++i)
 	{
-		m_edgeVertices[9 * index + i].color = color;
+		m_edgeVertices[9 * index + i].color = edgeColor;
 	}
 }
