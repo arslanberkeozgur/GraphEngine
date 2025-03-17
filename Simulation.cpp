@@ -120,7 +120,6 @@ void Simulation::run()
 		// Displaying node info
 		if (Settings::DISPLAY_NODE_INFO)
 		{
-
 			sf::View originalView = m_window.getView();
 			sf::View textView = m_window.getDefaultView();
 			m_window.setView(textView);
@@ -142,7 +141,6 @@ void Simulation::run()
 				text.setString(std::to_string(edge.weight));
 				text.setCharacterSize(Settings::WEIGHT_FONT_SIZE);
 				text.setFillColor(Settings::FONT_COLOR);
-
 
 				sf::Vector2f worldPos = edge.position + Settings::WEIGHT_TEXT_DISTANCE * edge.normal;
 				sf::Vector2i pixelPos = m_window.mapCoordsToPixel(worldPos, originalView);
@@ -220,7 +218,5 @@ void Simulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
 {
 	Node& node = m_graph->getNode(nodeIndex);
 
-	ss << "Selected Node: " << nodeIndex << "\n"
-		<< "Persuasion: " << node.persuasion << "\n"
-		<< "Gullability: " << node.gullability << "\n";
+	ss << "Selected Node: " << nodeIndex << "\n";
 }

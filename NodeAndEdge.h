@@ -31,7 +31,7 @@ struct Edge
 	Node* end;
 	unsigned int index;
 
-	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
+	// ---------- YOU CAN ADD & CHANGE PROPERTIES BELOW THIS LINE ----------
 	int weight;
-	// ---------- YOU CAN ADD PROPERTIES ABOVE THIS LINE ----------
+	// ---------- YOU CAN ADD & CHANGE PROPERTIES ABOVE THIS LINE ----------
 };
