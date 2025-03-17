@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include <iostream>
+#include <fstream>
 
 Simulation::Simulation(Graph* graph, const std::string& fontPath)
 	: m_graph{ graph }
@@ -237,4 +238,57 @@ void Simulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
 		<< "Maximum Degree: " << m_graph->getMaximumDegree() << "\n"
 		<< "Maximum In-Degree: " << m_graph->getMaximumInDegree() << "\n"
 		<< "Maximum Out-Degree: " << m_graph->getMaximumOutDegree() << "\n";
+}
+
+void Simulation::exportTractedDataToCSV(const std::string& fileName) const
+{
+	std::ofstream ofs(fileName.c_str());
+	if (!ofs.is_open())
+	{
+		std::cerr << "ERROR::FAILED TO OPEN FILE " << fileName << " FOR WRITING" << std::endl;
+		return;
+	}
+
+	// Write header row
+	ofs << "Index";
+	for (std::map<std::string, std::vector<double>>::const_iterator it = m_trackedData.begin();
+		it != m_trackedData.end(); ++it)
+	{
+		ofs << "," << it->first;
+	}
+	ofs << "\n";
+
+	// Determine the maximum number of samples among all tracked variables
+	size_t maxLength = 0;
+	for (std::map<std::string, std::vector<double> >::const_iterator it = m_trackedData.begin();
+		it != m_trackedData.end(); ++it)
+	{
+		if (it->second.size() > maxLength)
+		{
+			maxLength = it->second.size();
+		}
+	}
+
+	// Write data rows
+	for (size_t i = 0; i < maxLength; ++i)
+	{
+		ofs << i;  // Write the index in the first column
+		for (std::map<std::string, std::vector<double> >::const_iterator it = m_trackedData.begin();
+			it != m_trackedData.end(); ++it)
+		{
+			// If this variable has a value at row i, write it; otherwise leave blank
+			if (i < it->second.size())
+			{
+				ofs << "," << it->second[i];
+			}
+			else
+			{
+				ofs << ",";
+			}
+		}
+		ofs << "\n";
+	}
+
+	ofs.close();
+	std::cout << "Tracked data successfully exported to " << fileName << std::endl;
 }

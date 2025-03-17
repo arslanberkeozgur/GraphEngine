@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 #include "Input.h"
 #include <cstdint>
+#include <map>
 
 class Simulation
 {
@@ -24,6 +25,15 @@ public:
 	{
 		m_isPaused = false;
 	}
+
+	// For logging user-defined numeric data as the simulation progresses.
+	template<typename T>
+	void recordValue(const std::string& varName, T value)
+	{
+		m_trackedData[varName].push_back(static_cast<double>(value));
+	}
+	void exportTractedDataToCSV(const std::string& fileName) const;
+
 protected:
 	virtual void onStart();
 	virtual void onStep();
@@ -56,4 +66,6 @@ private:
 	void handleInputs();
 	void initializeInfoText();
 	void setInfoText();
+
+	std::map<std::string, std::vector<double>> m_trackedData;
 };
