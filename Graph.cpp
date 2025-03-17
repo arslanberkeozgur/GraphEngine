@@ -387,7 +387,7 @@ int Graph::findClosestNode(sf::Vector2f position, float tolerance) const
 	return closestIndex;
 }
 
-void Graph::setNodeColor(size_t index, sf::Color color, float alpha = 1.0f)
+void Graph::setNodeColor(size_t index, sf::Color color, float alpha)
 {
 	m_nodeVertices[6 * index].color = color;
 	m_nodeVertices[6 * index + 1].color = color;
@@ -405,7 +405,7 @@ void Graph::setNodeColor(size_t index, sf::Color color, float alpha = 1.0f)
 
 }
 
-void Graph::setEdgeColor(size_t index, sf::Color color, float alpha = 1.0f)
+void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 {
 	m_edgeVertices[9 * index].color = color;
 	m_edgeVertices[9 * index + 1].color = color;
