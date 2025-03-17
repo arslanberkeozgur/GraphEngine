@@ -22,7 +22,7 @@ namespace Settings
 	constexpr sf::Color NODE_COLOR = sf::Color::White;
 	constexpr sf::Color EDGE_COLOR = sf::Color::White;
 	constexpr sf::Color EDGE_ARROW_COLOR = sf::Color::Red;
-	constexpr float EDGE_ALPHA = 1.0f;
+	constexpr float EDGE_ALPHA = 0.2f;
 	constexpr float NODE_SIZE = 1.0f;
 	constexpr float EDGE_THICKNESS = 0.1f;
 	constexpr float ATTRACTION_FORCE = 0.01f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
