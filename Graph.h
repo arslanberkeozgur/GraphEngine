@@ -47,6 +47,10 @@ private:
 	std::vector<Node> m_nodes;
 	std::vector<Edge> m_edges;
 	std::vector<std::vector<int>> m_adjacencyMatrix;
+
+	// Important parameters
+	unsigned int m_minimumDegree;
+	float m_averageDegree;
 	
 	// Visual 
 	float m_nodeSize = Settings::NODE_SIZE;

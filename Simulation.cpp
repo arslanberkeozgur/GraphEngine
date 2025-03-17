@@ -120,7 +120,6 @@ void Simulation::run()
 		// Displaying node info
 		if (Settings::DISPLAY_NODE_INFO)
 		{
-
 			sf::View originalView = m_window.getView();
 			sf::View textView = m_window.getDefaultView();
 			m_window.setView(textView);
@@ -140,9 +139,8 @@ void Simulation::run()
 				Edge& edge = m_graph->getEdge(i);
 				sf::Text text(m_font);
 				text.setString(std::to_string(edge.weight));
-				text.setCharacterSize(Settings::FONT_SIZE);
+				text.setCharacterSize(Settings::WEIGHT_FONT_SIZE);
 				text.setFillColor(Settings::FONT_COLOR);
-
 
 				sf::Vector2f worldPos = edge.position + Settings::WEIGHT_TEXT_DISTANCE * edge.normal;
 				sf::Vector2i pixelPos = m_window.mapCoordsToPixel(worldPos, originalView);
@@ -210,16 +208,12 @@ void Simulation::setInfoText()
 
 void Simulation::injectInfoTextInitialization(std::stringstream& ss)
 {
-	ss << "Selected Node: " << "????????????????????????" << "\n"
-		<< "Persuasion: " << "????????????????????????" << "\n"
-		<< "Gullability: " << "????????????????????????" << "\n";
+	ss << "Selected Node: " << "????????????????????????" << "\n";
 }
 
 void Simulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& ss)
 {
 	Node& node = m_graph->getNode(nodeIndex);
 
-	ss << "Selected Node: " << nodeIndex << "\n"
-		<< "Persuasion: " << node.persuasion << "\n"
-		<< "Gullability: " << node.gullability << "\n";
+	ss << "Selected Node: " << nodeIndex << "\n";
 }

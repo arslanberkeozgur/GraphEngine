@@ -14,8 +14,6 @@ struct Node
 	std::vector<Edge*> outEdges;
 
 	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
-	int persuasion = 1;
-	int gullability = 1;
 
 	// ---------- YOU CAN ADD PROPERTIES ABOVE THIS LINE ----------
 };
@@ -29,8 +27,7 @@ struct Edge
 	Node* end;
 	unsigned int index;
 
-	// ---------- YOU CAN ADD PROPERTIES BELOW THIS LINE ----------
+	// ---------- YOU CAN ADD & CHANGE PROPERTIES BELOW THIS LINE ----------
 	int weight;
-
-	// ---------- YOU CAN ADD PROPERTIES ABOVE THIS LINE ----------
+	// ---------- YOU CAN ADD & CHANGE PROPERTIES ABOVE THIS LINE ----------
 };

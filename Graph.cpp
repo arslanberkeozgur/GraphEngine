@@ -328,12 +328,12 @@ void Graph::setVertexPositionsOfEdge(size_t i, bool second)
 	m_edgeVertices[9 * i + 5].position = cornerB;
 
 	// Arrow
-	m_edgeVertices[9 * i + 6].position = pos2 - 0.5f * dr;
-	m_edgeVertices[9 * i + 7].position = cornerA + 0.45f * dr;
-	m_edgeVertices[9 * i + 8].position = cornerB + 0.45f * dr;
-	m_edgeVertices[9 * i + 6].color = sf::Color::Black;
-	m_edgeVertices[9 * i + 7].color = sf::Color::Black;
-	m_edgeVertices[9 * i + 8].color = sf::Color::Black;
+	m_edgeVertices[9 * i + 6].position = pos1 + 0.5f* dr + Settings::EDGE_ARROW_SIZE * dr_hat;
+	m_edgeVertices[9 * i + 7].position = cornerA + 0.5f * dr;
+	m_edgeVertices[9 * i + 8].position = cornerB + 0.5f * dr;
+	m_edgeVertices[9 * i + 6].color = Settings::EDGE_ARROW_COLOR;
+	m_edgeVertices[9 * i + 7].color = Settings::EDGE_ARROW_COLOR;
+	m_edgeVertices[9 * i + 8].color = Settings::EDGE_ARROW_COLOR;
 
 	// If this is not the second edge between these vertices, look for a second edge.
 	if (!second)
@@ -388,35 +388,20 @@ int Graph::findClosestNode(sf::Vector2f position, float tolerance) const
 
 void Graph::setNodeColor(size_t index, sf::Color color, float alpha)
 {
-	m_nodeVertices[6 * index].color = color;
-	m_nodeVertices[6 * index + 1].color = color;
-	m_nodeVertices[6 * index + 2].color = color;
-	m_nodeVertices[6 * index + 3].color = color;
-	m_nodeVertices[6 * index + 4].color = color;
-	m_nodeVertices[6 * index + 5].color = color;
+	sf::Color nodeColor{ color.r, color.g, color.b, uint8_t(alpha * 255.0f) };
 
-	m_nodeVertices[6 * index].color.a = int(alpha * 255.0f);
-	m_nodeVertices[6 * index + 1].color.a = int(alpha * 255.0f);
-	m_nodeVertices[6 * index + 2].color.a = int(alpha * 255.0f);
-	m_nodeVertices[6 * index + 3].color.a = int(alpha * 255.0f);
-	m_nodeVertices[6 * index + 4].color.a = int(alpha * 255.0f);
-	m_nodeVertices[6 * index + 5].color.a = int(alpha * 255.0f);
-
+	for (size_t i = 0; i < 6; ++i)
+	{
+		m_nodeVertices[6 * index + i].color = nodeColor;
+	}
 }
 
 void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 {
-	m_edgeVertices[9 * index].color = color;
-	m_edgeVertices[9 * index + 1].color = color;
-	m_edgeVertices[9 * index + 2].color = color;
-	m_edgeVertices[9 * index + 3].color = color;
-	m_edgeVertices[9 * index + 4].color = color;
-	m_edgeVertices[9 * index + 5].color = color;
+	sf::Color edgeColor{ color.r, color.g, color.b, uint8_t(alpha * 255.0f) };
 
-	m_edgeVertices[9 * index].color.a = int(alpha * 255.0f);
-	m_edgeVertices[9 * index + 1].color.a = int(alpha * 255.0f);
-	m_edgeVertices[9 * index + 2].color.a = int(alpha * 255.0f);
-	m_edgeVertices[9 * index + 3].color.a = int(alpha * 255.0f);
-	m_edgeVertices[9 * index + 4].color.a = int(alpha * 255.0f);
-	m_edgeVertices[9 * index + 5].color.a = int(alpha * 255.0f);
+	for (size_t i = 0; i < 6; ++i)
+	{
+		m_edgeVertices[9 * index + i].color = color;
+	}
 }
