@@ -19,14 +19,14 @@ namespace Settings
 	// ---------- VISUAL -----------
 	constexpr int ANTIALIASING = 4;	// Better looks, but performance heavy.
 	constexpr sf::Color BACKGROUND_COLOR = sf::Color::Black;
-	constexpr sf::Color NODE_COLOR = sf::Color::White;
+	constexpr sf::Color NODE_COLOR = sf::Color::Red;
 	constexpr sf::Color EDGE_COLOR = sf::Color::White;
 	constexpr sf::Color EDGE_ARROW_COLOR = sf::Color::Red;
 	constexpr float EDGE_ALPHA = 1.0f;
-	constexpr float NODE_SIZE = 1.0f;
-	constexpr float EDGE_THICKNESS = 0.1f;
-	constexpr float ATTRACTION_FORCE = 0.01f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
-	constexpr float REPULSION_FORCE = 0.04f;      // Same recommendation as above. 
+	constexpr float NODE_SIZE = 2.0f;
+	constexpr float EDGE_THICKNESS = 0.2f;
+	constexpr float ATTRACTION_FORCE = 0.0001f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
+	constexpr float REPULSION_FORCE = 0.6f;      // Same recommendation as above. 
 	constexpr float EDGE_ARROW_SIZE = 0.4f;
 
 	// ---------- TEXT ----------
@@ -35,6 +35,8 @@ namespace Settings
 	constexpr sf::Color FONT_COLOR = sf::Color::White;
 
 	// ---------- SIMULATION ----------
+	constexpr unsigned int NUMBER_OF_PHYSICS_ITERATIONS = 100; // Number of physics iterations ran before the simulation begins.
+	constexpr bool DYNAMIC_PHYSICS = true; // If you set this to false, I recommend increasing the NUMBER_OF_PHYSICS_ITERATIONS.
 	constexpr bool SHOW_WEIGHTS = true;		// Performance intensive for large graphs.
 	constexpr float WEIGHT_TEXT_DISTANCE = 0.1f; // Positioning of weight indicators from edges.
 	constexpr bool DISPLAY_NODE_INFO = true;
