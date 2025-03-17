@@ -19,7 +19,7 @@ namespace Settings
 	// ---------- VISUAL -----------
 	constexpr int ANTIALIASING = 4;	// Better looks, but performance heavy.
 	constexpr sf::Color BACKGROUND_COLOR = sf::Color::Black;
-	constexpr sf::Color NODE_COLOR = sf::Color::White;
+	constexpr sf::Color NODE_COLOR = sf::Color::Red;
 	constexpr sf::Color EDGE_COLOR = sf::Color::White;
 	constexpr sf::Color EDGE_ARROW_COLOR = sf::Color::Red;
 	constexpr float EDGE_ALPHA = 0.2f;
@@ -35,6 +35,8 @@ namespace Settings
 	constexpr sf::Color FONT_COLOR = sf::Color::White;
 
 	// ---------- SIMULATION ----------
+	constexpr unsigned int NUMBER_OF_PHYSICS_ITERATIONS = 100; // Number of physics iterations ran before the simulation begins.
+	constexpr bool DYNAMIC_PHYSICS = true; // If you set this to false, I recommend increasing the NUMBER_OF_PHYSICS_ITERATIONS.
 	constexpr bool SHOW_WEIGHTS = false;		// Performance intensive for large graphs.
 	constexpr float WEIGHT_TEXT_DISTANCE = 0.1f; // Positioning of weight indicators from edges.
 	constexpr bool DISPLAY_NODE_INFO = true;

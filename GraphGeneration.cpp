@@ -17,11 +17,14 @@ namespace GraphGeneration
 		{
 			for (size_t j = 0; j < numOfNodes; ++j)
 			{
-				float existenceDeterminer = realDist(rngEngine);
-				if (existenceDeterminer < connectionProbability)
+				if (i != j)
 				{
-					float weightDeterminer = realDist(rngEngine);
-					adjacencyMatrix[i][j] = int(realDist(rngEngine) * float(maxStrength) + 1.0f);
+					float existenceDeterminer = realDist(rngEngine);
+					if (existenceDeterminer < connectionProbability)
+					{
+						float weightDeterminer = realDist(rngEngine);
+						adjacencyMatrix[i][j] = int(realDist(rngEngine) * float(maxStrength) + 1.0f);
+					}
 				}
 			}
 		}

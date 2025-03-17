@@ -121,6 +121,8 @@ void Graph::adjacencyMatrixToGeometry()
 	{
 		updateGeometry();
 	}
+
+	calculateImportantParameters();
 }
 
 void Graph::updateGeometry(int nodeHeld, sf::Vector2f inject)
@@ -405,4 +407,52 @@ void Graph::setEdgeColor(size_t index, sf::Color color, float alpha)
 	{
 		m_edgeVertices[9 * index + i].color = edgeColor;
 	}
+}
+
+void Graph::calculateImportantParameters()
+{
+	unsigned int minimumDegree = m_adjacencyMatrix.size();
+	unsigned int minimumInDegree = m_adjacencyMatrix.size();
+	unsigned int minimumOutDegree = m_adjacencyMatrix.size();
+	unsigned int maximumDegree = 0;
+	unsigned int maximumInDegree = 0;
+	unsigned int maximumOutDegree = 0;
+	float averageInDegree = 0;
+	float averageOutDegree = 0;
+	for (size_t i = 0; i < m_adjacencyMatrix.size(); ++i)
+	{
+		unsigned int inDegreeCounter = 0;
+		unsigned int outDegreeCounter = 0;
+		for (size_t j = 0; j < m_adjacencyMatrix.size(); ++j)
+		{
+			if (m_adjacencyMatrix[i][j] != 0)
+			{
+				outDegreeCounter++;
+			}
+			if (m_adjacencyMatrix[j][i] != 0)
+			{
+				inDegreeCounter++;
+			}
+		}
+		if (inDegreeCounter < minimumInDegree) { minimumInDegree = inDegreeCounter; }
+		if (outDegreeCounter < minimumOutDegree) { minimumOutDegree = outDegreeCounter; }
+		if (inDegreeCounter + outDegreeCounter < minimumDegree) { minimumDegree = inDegreeCounter + outDegreeCounter; }
+		if (inDegreeCounter >= maximumInDegree) { maximumInDegree = inDegreeCounter; }
+		if (outDegreeCounter >= maximumOutDegree) { maximumOutDegree = outDegreeCounter; }
+		if (inDegreeCounter + outDegreeCounter >= maximumDegree) { maximumDegree = inDegreeCounter + outDegreeCounter; }
+
+		averageInDegree += float(inDegreeCounter);
+		averageOutDegree += float(outDegreeCounter);
+	}
+	m_minimumInDegree = minimumInDegree;
+	m_minimumOutDegree = minimumOutDegree;
+	m_minimumDegree = minimumDegree;
+
+	m_averageInDegree = averageInDegree / float(m_adjacencyMatrix.size());
+	m_averageOutDegree = averageOutDegree / float(m_adjacencyMatrix.size());
+	m_averageDegree = m_averageInDegree + m_averageOutDegree;
+
+	m_maximumDegree = maximumDegree;
+	m_maximumInDegree = maximumInDegree;
+	m_maximumOutDegree = maximumOutDegree;
 }

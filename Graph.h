@@ -34,14 +34,18 @@ public:
 
 	void setNodeColor(size_t index, sf::Color color, float alpha = 1.0f);
 	void setEdgeColor(size_t index, sf::Color color, float alpha = 1.0f);
-	int getNumOfEdges() const
-	{
-		return m_edges.size();
-	}
-	int getNumOfNodes() const
-	{
-		return m_nodes.size();
-	}
+
+	int getNumOfEdges() const { return m_edges.size(); }
+	int getNumOfNodes() const { return m_nodes.size();}
+	unsigned int getMinimumDegree() const { return m_minimumDegree; }
+	unsigned int getMinimumInDegree() const { return m_minimumInDegree; }
+	unsigned int getMinimumOutDegree() const { return m_minimumOutDegree; }
+	float getAverageDegree() const { return m_averageDegree; }
+	float getAverageInDegree() const { return m_averageInDegree; }
+	float getAverageOutDegree() const { return m_averageOutDegree; }
+	unsigned int getMaximumDegree() const { return m_maximumDegree; }
+	unsigned int getMaximumInDegree() const { return m_maximumInDegree; }
+	unsigned int getMaximumOutDegree() const { return m_maximumOutDegree; }
 
 private:
 	std::vector<Node> m_nodes;
@@ -50,7 +54,14 @@ private:
 
 	// Important parameters
 	unsigned int m_minimumDegree;
+	unsigned int m_minimumInDegree;
+	unsigned int m_minimumOutDegree;
+	unsigned int m_maximumDegree;
+	unsigned int m_maximumInDegree;
+	unsigned int m_maximumOutDegree;
 	float m_averageDegree;
+	float m_averageInDegree;
+	float m_averageOutDegree;
 	
 	// Visual 
 	float m_nodeSize = Settings::NODE_SIZE;
@@ -58,7 +69,7 @@ private:
 	float m_areaSize;
 	float m_attraction = Settings::ATTRACTION_FORCE;
 	float m_repulsion = Settings::REPULSION_FORCE;
-	int m_iterations = 100;
+	int m_iterations = Settings::NUMBER_OF_PHYSICS_ITERATIONS;
 
 	// Rendering
 	sf::VertexArray m_nodeVertices;
@@ -75,4 +86,5 @@ private:
 	{
 		return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
 	}
+	void calculateImportantParameters();
 };
