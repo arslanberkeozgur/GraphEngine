@@ -102,7 +102,7 @@ void OpinionSimulation::flashEdges()
 {
 	for (int i = 0; i < flashingEdges.size(); ++i)
 	{
-		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::Green);
+		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::Yellow);
 	}
 }
 
@@ -110,7 +110,7 @@ void OpinionSimulation::unflashEdges()
 {
 	for (int i = 0; i < flashingEdges.size(); ++i)
 	{
-		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::White);
+		m_graph->setEdgeColor(flashingEdges[i]->index, sf::Color::White, Settings::EDGE_ALPHA);
 	}
 	flashingEdges.clear();
 }

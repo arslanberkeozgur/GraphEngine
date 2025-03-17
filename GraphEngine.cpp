@@ -5,7 +5,7 @@
 
 int main()
 {
-    std::vector<std::vector<int>> adjacencyMatrix = GraphGeneration::GenerateRandomGraph(800, 0.002, 4);
+    std::vector<std::vector<int>> adjacencyMatrix = GraphGeneration::GenerateRandomGraph(1200, 0.002, 4);
     Graph graph{ adjacencyMatrix };
     OpinionSimulation simulation{ &graph };
 
