@@ -14,7 +14,7 @@ namespace Settings
 	constexpr unsigned int WIDTH = 800; 	// If not fullscreen, set the width and height.
 	constexpr unsigned int HEIGHT = 600;
 	constexpr unsigned int FRAMERATE_LIMIT = 60; 	// If 0, no limit is imposed. (No limit is better for algorithms, bad for visualization).
-	constexpr float ORIGINAL_VIEW_SIZE = 64.0f; 	// Starting view size in world coordinates. (Can be changed by zooming)
+	constexpr float ORIGINAL_VIEW_SIZE = 600.0f; 	// Starting view size in world coordinates. (Can be changed by zooming)
 
 	// ---------- VISUAL -----------
 	constexpr int ANTIALIASING = 4;	// Better looks, but performance heavy.
@@ -23,10 +23,10 @@ namespace Settings
 	constexpr sf::Color EDGE_COLOR = sf::Color::White;
 	constexpr sf::Color EDGE_ARROW_COLOR = sf::Color::Red;
 	constexpr float EDGE_ALPHA = 0.4f;
-	constexpr float NODE_SIZE = 4.0f;
-	constexpr float EDGE_THICKNESS = 0.5f;
-	constexpr float ATTRACTION_FORCE = 0.005f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
-	constexpr float REPULSION_FORCE = 0.001f;      // Same recommendation as above. 
+	constexpr float NODE_SIZE = 3.0f;
+	constexpr float EDGE_THICKNESS = 0.4f;
+	constexpr float ATTRACTION_FORCE = 0.0005f;    // Not increasing this above 0.1-0.2 is recommended. Otherwise exhibits weird behavior.
+	constexpr float REPULSION_FORCE = 0.8f;      // Same recommendation as above. 
 	constexpr float EDGE_ARROW_SIZE = 0.4f;
 
 	// ---------- TEXT ----------

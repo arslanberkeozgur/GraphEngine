@@ -8,6 +8,8 @@ class OpinionSimulation : public Simulation
 public:
 	using Simulation::Simulation;
 
+	~OpinionSimulation() override;
+
 	void onStart() override;
 	void onStep() override;
 	void injectInputHandling() override;
@@ -30,4 +32,5 @@ private:
 
 	unsigned int numOfTrueNodes = 0;
 	unsigned int numOfFalseNodes = 0;
+	unsigned int recordPeriod = 10;
 };

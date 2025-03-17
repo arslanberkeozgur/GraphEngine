@@ -106,6 +106,12 @@ void OpinionSimulation::onStep()
 		}
 	}
 
+	if (m_currentTimeStep % recordPeriod == 0)
+	{
+		recordValue("Num of True Nodes", numOfTrueNodes);
+		recordValue("Num of False Nodes", numOfFalseNodes);
+	}
+
 	flashEdges();
 }
 
@@ -155,4 +161,9 @@ void OpinionSimulation::injectInfoTextUpdate(int nodeIndex, std::stringstream& s
 		<< "Persuasion: " << node.persuasion << "\n"
 		<< "Gullability: " << node.gullability << "\n"
 		<< "Broadcast Frequency: " << node.broadcastFrequency << "\n";
+}
+
+OpinionSimulation::~OpinionSimulation()
+{
+	exportTractedDataToCSV("C:\\Users\\user\\PycharmProjects\\GraphEngineDataAnalyses\\data\\opinion_data.csv");
 }
