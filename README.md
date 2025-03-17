@@ -1,191 +1,177 @@
-# Graph Engine
+# C++ Graph Engine
 
-This is a minimalistic C++ graph visualization and simulation engine built using SFML. The engine is designed to generate, display, and analyze graphs while allowing basic interactions. The focus is on simplicity, direct access to data structures, and intuitive visual representation.
+## Overview
+This project implements a **Graph Engine** using **C++ and SFML** for visualization. It provides:
+- A **Graph** class with nodes and edges stored via an adjacency matrix.
+- A **Simulation** base class managing rendering, input, and a simulation loop.
+- The ability to create custom simulations by inheriting from `Simulation`.
 
-## Manual Usage
+## Setup & Installation
+### 1. Install SFML
+1. Download SFML from [https://www.sfml-dev.org/download.php](https://www.sfml-dev.org/download.php).
+2. Extract the SFML folder to a known location.
+3. Ensure you have the correct **x64 or x86** version matching your compiler.
 
-The engine provides interactive controls for manipulating and inspecting graph structures. The following inputs are available:
+### 2. Clone the Repository
+```sh
+$ git clone https://github.com/your-repo/graph-engine.git
+$ cd graph-engine
+```
 
-### Mouse Controls
+### 3. Configure CMake for Visual Studio
+1. Open **Visual Studio**.
+2. Select **"Open a CMake Project"** and choose this folder.
+3. Modify `CMakeLists.txt` if necessary:
+```cmake
+set(SFML_ROOT "C:/Path/To/SFML")
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+```
 
-- **Left Click & Drag:** Move a node.
-- **Right Click & Drag:** Pan the view.
-- **Scroll Wheel:** Zoom in and out.
-- **Hover Over Node and Click:** Display node information.
+### 4. Build the Project
+- Configure CMake in **Release** or **Debug** mode.
+- Compile using **Visual Studio’s Build menu**.
 
-### Keyboard Controls
+### 5. Copy SFML DLLs to Executable Folder
+After building, copy required SFML `.dll` files (e.g., `sfml-graphics-2.dll`, `sfml-window-2.dll`, etc.) to the `build/Debug/` or `build/Release/` directory where the `.exe` is located.
 
-- **P:** Pause/unpause simulation.
-- **ESC:** Exit the application.
+## Running the Example Simulation
+To run the example `OpinionSimulation`:
+```cpp
+#include "OpinionSimulation.h"
+#include "GraphGeneration.h"
 
-These controls allow users to explore graphs dynamically, observing their structures and properties in real time.
+int main()
+{
+    std::vector<std::vector<int>> adjacencyMatrix = GraphGeneration::GenerateRandomGraph(200, 0.01, 4);
+    Graph graph{ adjacencyMatrix };
+    OpinionSimulation simulation{ &graph };
+    simulation.run();
+    return 0;
+}
+```
+- This initializes a **random graph** with 200 nodes and a 1% edge probability.
+- The `OpinionSimulation` class runs inside the `SFML` window, processing input and visualizing node interactions.
 
-## Navigating the Codebase
+## User Input Controls
+| Action | Effect |
+|--------|--------|
+| **Left-click & drag** | Pan the camera |
+| **Right-click on a node** | Pick up and drag the node |
+| **Escape (Esc) key** | Close the window |
 
-The engine is designed to be easily extendable. To create and run simulations, follow these guidelines:
+## Understanding Nodes and Edges
+### Node Structure
+```cpp
+struct Node
+{
+    sf::Vector2f position;
+    unsigned int index;
+    std::vector<Edge*> inEdges;
+    std::vector<Edge*> outEdges;
+};
+```
+Each node has:
+- A `position` for rendering.
+- A unique `index`.
+- Lists of incoming (`inEdges`) and outgoing (`outEdges`) edges.
 
-- **Modify `GraphEngine.cpp`** only for initialization and basic setup.
-- **Inherit from `Simulation`** to define custom simulations by overriding specific methods.
+You can add additional fields to these structures for you custom simulations. In fact, this is a crucial step in defining your own simulation. 
 
-### What You Have Access To in `Simulation`
+### Edge Structure
+```cpp
+struct Edge
+{
+    Node* start;
+    Node* end;
+    int weight;
+};
+```
+Each edge connects two nodes and has an integer `weight`.
 
-When inheriting from `Simulation`, you have access to various components that allow interaction with the graph and control over the simulation:
+## Creating Custom Simulations
+To create your own simulation, **inherit from `Simulation`** and override key functions.
 
-- **`m_graph` (Graph*)**: Access the graph structure and its nodes/edges.
-  - `m_graph->getNumOfNodes()`: Get the number of nodes.
-  - `m_graph->getNumOfEdges()`: Get the number of edges.
-  - `m_graph->getNode(size_t index)`: Access a specific node.
-  - `m_graph->getEdge(size_t index)`: Access a specific edge.
-  - `m_graph->setNodeColor(size_t index, sf::Color color)`: Change node color.
-  - `m_graph->setEdgeColor(size_t index, sf::Color color)`: Change edge color.
-
-- **Simulation State Variables**:
-  - `m_isRunning`: Check if the simulation is running.
-  - `m_isPaused`: Check if the simulation is paused.
-  - `m_currentTimeStep`: Track the current timestep of the simulation.
-  
-- **Input Handling**:
-  - `m_inputState`: Capture user inputs like key presses and mouse movements.
-  - `injectInputHandling()`: Override to define custom input behavior.
-
-### Example: Creating a Custom Simulation
-
-To create a custom simulation, inherit from `Simulation` and implement the necessary methods. Below is an example implementation of an opinion dynamics simulation:
-
-#### `OpinionSimulation.h`
+### Example: Custom Simulation Class
 ```cpp
 #pragma once
-
 #include "Simulation.h"
 #include <random>
 
-class OpinionSimulation : public Simulation
+class MySimulation : public Simulation
 {
 public:
     using Simulation::Simulation;
-
     void onStart() override;
     void onStep() override;
     void injectInputHandling() override;
-
-private:
-    void injectInfoTextInitialization(std::stringstream& ss) override;
-    void injectInfoTextUpdate(int nodeIndex, std::stringstream& ss) override;
-
-    std::mt19937 rngEngine;
-    std::uniform_int_distribution<> interactionDistribution{ 0,100 };
-
-    std::vector<Edge*> flashingEdges;
-    void flashEdges();
-    void unflashEdges();
 };
 ```
-
-#### `OpinionSimulation.cpp`
+### Implementing the Methods
 ```cpp
-#include "OpinionSimulation.h"
-#include <iostream>
-
-void OpinionSimulation::onStart()
+void MySimulation::onStart()
 {
-    flashingEdges.reserve(100);
-    std::random_device rd;
-    rngEngine.seed(rd());
-
-    std::uniform_int_distribution<> intDist(1, 10);
-    std::uniform_int_distribution<> broadcastFreqDist(20, 100);
-
-    for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
-    {
-        Node& node = m_graph->getNode(i);
-        node.gullability = intDist(rngEngine);
-        node.persuasion = intDist(rngEngine);
-        node.opinionStrength = intDist(rngEngine);
-        node.broadcastFrequency = broadcastFreqDist(rngEngine);
-
-        int opinionDeterminer = intDist(rngEngine);
-        if (opinionDeterminer > 5)
-        {
-            node.opinion = false;
-            m_graph->setNodeColor(i, sf::Color::Blue);
-        }
-        if (node.opinion)
-        {
-            m_graph->setNodeColor(i, sf::Color::Red);
-        }
-    }
+    // Runs once at startup
+    recordValue("ExampleMetric", 0.0);
 }
 
-void OpinionSimulation::onStep()
+void MySimulation::onStep()
 {
-    if (m_currentTimeStep % 20 == 0)
-    {
-        unflashEdges();
-    }
-    for (size_t i = 0; i < m_graph->getNumOfNodes(); ++i)
-    {
-        Node& node = m_graph->getNode(i);
-
-        if (m_currentTimeStep % node.broadcastFrequency == 0)
-        {
-            for (Edge* connection : node.outEdges)
-            {
-                Node* endNode = connection->end;
-                int successDeterminer = interactionDistribution(rngEngine);
-                int interactionStrength = node.persuasion * endNode->gullability * connection->weight;
-
-                if (successDeterminer < interactionStrength)
-                {
-                    flashingEdges.push_back(connection);
-                    if (endNode->opinion == node.opinion)
-                    {
-                        endNode->opinionStrength += node.persuasion;
-                    }
-                    else
-                    {
-                        if (endNode->opinionStrength > node.persuasion)
-                        {
-                            endNode->opinionStrength -= node.persuasion;
-                        }
-                        else
-                        {
-                            endNode->opinion = !endNode->opinion;
-                            int excessOpinion = node.persuasion - endNode->opinionStrength;
-                            endNode->opinionStrength = excessOpinion;
-                            m_graph->setNodeColor(endNode->index, endNode->opinion ? sf::Color::Red : sf::Color::Blue);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    flashEdges();
+    // Runs every frame when simulation is active
+    recordValue("ExampleMetric", rand() % 100);
 }
 
-void OpinionSimulation::flashEdges()
+void MySimulation::injectInputHandling()
 {
-    for (Edge* edge : flashingEdges)
+    if (m_inputState.keyPressed_P)
     {
-        m_graph->setEdgeColor(edge->index, sf::Color::Green);
+        if (m_isPaused) unpause();
+        else pause();
     }
-}
-
-void OpinionSimulation::unflashEdges()
-{
-    for (Edge* edge : flashingEdges)
-    {
-        m_graph->setEdgeColor(edge->index, sf::Color::White);
-    }
-    flashingEdges.clear();
-}
-
-void OpinionSimulation::injectInputHandling()
-{
-    if (m_inputState.keyPressed_P && !pKeyHeld)
-    {
-        m_isPaused = !m_isPaused;
-    }
-    pKeyHeld = m_inputState.keyPressed_P;
 }
 ```
+
+## Logging Data & Exporting CSV
+You can **log values over time** and export them to a CSV file for visualization in Python:
+```cpp
+recordValue("NodeCount", m_graph->getNumOfNodes());
+exportTrackedDataToCSV("output.csv");
+```
+### Reading CSV in Python
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("output.csv")
+plt.plot(data["Index"], data["NodeCount"])
+plt.show()
+```
+
+## Available Graph Functions (`m_graph`)
+| Function | Description |
+|----------|-------------|
+| `getNode(size_t index)` | Returns a node reference |
+| `getEdge(size_t index)` | Returns an edge reference |
+| `getNumOfNodes()` | Returns total nodes count |
+| `getNumOfEdges()` | Returns total edges count |
+| `getMinimumDegree()` | Minimum node degree |
+| `getAverageDegree()` | Average node degree |
+| `getMaximumDegree()` | Maximum node degree |
+
+## Extending Input Handling
+Override `injectInputHandling()` in your subclass to add custom input:
+```cpp
+void MySimulation::injectInputHandling()
+{
+    if (m_inputState.keyPressed_Space)
+    {
+        std::cout << "Spacebar pressed!" << std::endl;
+    }
+}
+```
+
+## Conclusion
+This **Graph Engine** provides a base for network visualization and dynamic simulation development. By subclassing `Simulation`, you can create **custom algorithms**, **graph interactions**, and **visualized computations** with minimal setup.
+
+---
+For contributions or issues, feel free to submit a PR or open an issue!
 
