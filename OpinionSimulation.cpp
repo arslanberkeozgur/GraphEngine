@@ -27,12 +27,14 @@ void OpinionSimulation::onStart()
 		if (opinionDeterminer <= 5)
 		{
 			node.opinion = true;
-			m_graph->setNodeColor(i, opinion1Color);
+			m_graph->setNodeColor(i, trueOpinionColor);
+			numOfTrueNodes++;
 		}
 		else
 		{
 			node.opinion = false;
-			m_graph->setNodeColor(i, opinion2Color);
+			m_graph->setNodeColor(i, falseOpinionColor);
+			numOfFalseNodes++;
 		}
 	}
 }
@@ -78,13 +80,24 @@ void OpinionSimulation::onStep()
 							int excessOpinion = node.persuasion - endNode->opinionStrength;
 							endNode->opinionStrength = excessOpinion;
 
-							if (endNode->opinion)
+							if (node.opinion)
 							{
-								m_graph->setNodeColor(endNode->index, opinion1Color);
+								numOfTrueNodes++;
+								numOfFalseNodes--;
 							}
 							else
 							{
-								m_graph->setNodeColor(endNode->index, opinion2Color);
+								numOfTrueNodes--;
+								numOfFalseNodes++;
+							}
+
+							if (endNode->opinion)
+							{
+								m_graph->setNodeColor(endNode->index, trueOpinionColor);
+							}
+							else
+							{
+								m_graph->setNodeColor(endNode->index, falseOpinionColor);
 							}
 						}
 					}

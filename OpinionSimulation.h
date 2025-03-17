@@ -18,8 +18,8 @@ private:
 private:
 	bool pKeyHeld = false;
 
-	sf::Color opinion1Color = sf::Color::Cyan;
-	sf::Color opinion2Color = sf::Color::Red;
+	sf::Color trueOpinionColor = sf::Color::Cyan;
+	sf::Color falseOpinionColor = sf::Color::Red;
 
 	std::mt19937 rngEngine;
 	std::uniform_int_distribution<> interactionDistribution{ 0,100 };
@@ -27,4 +27,7 @@ private:
 	std::vector<Edge*> flashingEdges;
 	void flashEdges();
 	void unflashEdges();
+
+	unsigned int numOfTrueNodes = 0;
+	unsigned int numOfFalseNodes = 0;
 };
