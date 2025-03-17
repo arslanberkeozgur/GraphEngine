@@ -153,9 +153,9 @@ void Graph::updateGeometry(int nodeHeld, sf::Vector2f inject)
 				dist = 1e-2f;
 			}
 
-			// Calculate ~1/r^2 force. F = -(k/r) * r_hat.
+			// Calculate ~1/r force. F = -(k/r) * r_hat.
 			// r_hat points from i to j.
-			sf::Vector2f r_hat = dr / (dist * dist);
+			sf::Vector2f r_hat = dr / dist;
 			sf::Vector2f repulsiveForce = (m_repulsion / dist) * r_hat;
 
 			// Third law, equal and opposite.
