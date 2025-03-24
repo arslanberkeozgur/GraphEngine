@@ -8,7 +8,7 @@
 class Simulation
 {
 public:
-	Simulation(Graph* graph, const std::string& fontPath = "../../../nasa.ttf");
+	Simulation(Graph* graph, const std::string& fontPath = "../../../fonts/nasa.ttf");
 
 	virtual ~Simulation() = default;
 
